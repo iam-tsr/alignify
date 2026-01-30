@@ -1,0 +1,16 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "devDependencies": {
+        "@gradio/client": "^2.0.4",
+      },
+    },
+  },
+  "packages": {
+    "@gradio/client": ["@gradio/client@2.0.4", "", { "dependencies": { "fetch-event-stream": "^0.1.5" } }, "sha512-pYywxUpamTYQLca01YAlTBwr2eb3H8d9s7geeQdexuPkM7p+EN2LhyzgNRN4yZrpn4swwfwP1fOoadKgd1b6Ww=="],
+
+    "fetch-event-stream": ["fetch-event-stream@0.1.6", "", {}, "sha512-GREtJ5HNikdU2AXtZ6E/5bk+aslMU6ie5mPG6H9nvsdDkkHQ6m5lHwmmmDTOBexok9hApQ7EprsXCdmz9ZC68w=="],
+  }
+}

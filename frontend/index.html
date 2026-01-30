@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>alignify</title>
+    <link rel="stylesheet" href="./src/css/index.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">alignify</div>
+    </header>
+
+    <div class="app">
+      <div class="survey-container" id="surveyContainer">
+
+        <div class="progress-section">
+
+          <h1 class="survey-title">TSR Corporation</h1>
+          
+          <div class="progress-header">
+            <span class="progress-text" id="progressText">Question 1 of 10</span>
+            <span class="progress-percent" id="progressPercent">10%</span>
+          </div>
+          
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="question-section">
+          <p class="question-text" id="questionText"></p>
+
+          <div class="options-container" id="optionsContainer"></div>
+
+          <textarea
+            class="feedback-textarea"
+            id="feedbackInput"
+            placeholder="Optional: Provide additional feedback..."
+            rows="4"
+          ></textarea>
+
+          <div class="button-container">
+            <button class="btn btn-previous" id="prevBtn">Previous</button>
+            <button class="btn btn-next" id="nextBtn">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="thank-you-container" id="thankYouContainer" style="display: none;">
+        <div class="thank-you-icon">✓</div>
+        <h1 class="thank-you-title">Thank you for your valuable time</h1>
+        <p class="thank-you-message">Your feedback has been successfully submitted and is greatly appreciated.</p>
+      </div>
+    </div>
+    <script type="module" src="./src/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+:root {
+  /* Primary Colors */
+  --primary-brand: #0077FF;
+  --primary-brand-hover: #0066DB;
+  
+  /* Neutral Colors */
+  --background-gray: #F2F3F5;
+  --white: #ffffff;
+  --black: #000000;
+  --text-dark: #333;
+  --text-light: #999;
+  
+  /* Border & Background Colors */
+  --border-gray: #d0d0d0;
+  --bg-gray-light: #d9d9d9;
+  --bg-gray: #999;
+  --bg-gray-disabled: #666;
+  
+  /* Shadow */
+  --shadow-light: rgba(0, 0, 0, 0.08);
+}

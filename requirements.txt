@@ -1,0 +1,8 @@
+gradio_client==2.0.3
+uvicorn=0.40.0
+fastapi==0.128.0
+dotenv==0.9.9
+pymongo==4.16.0
+loguru==0.7.3
+apscheduler==3.11.2
+pytz==2025.2
