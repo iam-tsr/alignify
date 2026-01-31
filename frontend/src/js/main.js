@@ -12,6 +12,7 @@ class SurveyApp {
     ];
     this.totalQuestions = 0;
     this.isLoading = true;
+    this.retryInterval = null;
 
     this.init();
   }
@@ -66,11 +67,11 @@ class SurveyApp {
       this.questions = await response.json();
       this.questions = this.questions.splice(0); // Limit to questions for testing
       this.totalQuestions = this.questions.length;
+      return response.ok;
     } catch (error) {
       console.error('Error fetching questions:', error);
-      alert('Applogize, failed to load survey questions. Please try again later.');
-      this.questions = [];
-      this.totalQuestions = 0;
+      this.showError();
+      return false;
     }
   }
 
@@ -174,7 +175,7 @@ class SurveyApp {
       
     } catch (error) {
       console.error('Error submitting survey:', error);
-      alert('Failed to submit survey. Please try again.');
+      this.showError();
       return;
     }
     
@@ -207,6 +208,42 @@ class SurveyApp {
     
     surveyContainer.style.display = 'none';
     thankYouContainer.style.display = 'flex';
+  }
+
+  showError() {
+    const surveyContainer = document.getElementById('surveyContainer');
+    const errorContainer = document.getElementById('errorContainer');
+    
+    surveyContainer.style.display = 'none';
+    errorContainer.style.display = 'flex';
+    
+    // Start checking backend connectivity
+    this.startRetryConnection();
+  }
+
+  async checkBackendConnection() {
+    try {
+      const response = await fetch('/health', { 
+        method: 'GET',
+        cache: 'no-cache'
+      });
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  startRetryConnection() {
+    this.retryInterval = setInterval(async () => {
+      console.log('Checking backend connection...');
+      const isConnected = await this.checkBackendConnection();
+      
+      if (isConnected) {
+        console.log('Backend connection restored! Reloading...');
+        clearInterval(this.retryInterval);
+        window.location.reload();
+      }
+    }, 5000);
   }
 }
 

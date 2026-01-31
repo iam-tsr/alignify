@@ -227,7 +227,7 @@ body{
   box-shadow: 0 2px 8px var(--shadow-light);
   padding: 60px 40px;
   width: 100%;
-  max-width: 480px;
+  max-width: 450px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -278,14 +278,57 @@ body{
   margin: 0;
 }
 
-/* Responsive Design*/
-
-@media (max-width:600px) {
-  .thank-you-container{
-    margin-left: 50px;
-    margin-right: 50px;
-  }
+/* Error container styles */
+.error-container {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  padding: 40px;
+  width: 100%;
+  max-width: 550px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
 }
+
+.error-left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-gif {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.error-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.error-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0 0 16px 0;
+}
+
+.error-message {
+  font-size: 16px;
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design*/
 
 /* Mobile screens (480px and below) */
 @media (max-width: 480px) {
@@ -380,11 +423,7 @@ body{
   }
 
   .thank-you-container {
-    padding: 40px 24px;
     border-radius: 12px;
-    max-width: 300px;
-    margin-left: 0px;
-    margin-right: 0px;
   }
 
   .thank-you-icon {
@@ -400,6 +439,37 @@ body{
   }
 
   .thank-you-message {
+    font-size: 14px;
+  }
+
+  .error-container {
+    flex-direction: column;
+    padding: 30px 20px;
+    max-width: 100%;
+    gap: 20px;
+    border-radius: 12px;
+  }
+
+  .error-left {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .error-gif {
+    width: 140px;
+    height: 140px;
+  }
+
+  .error-right {
+    text-align: center;
+  }
+
+  .error-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .error-message {
     font-size: 14px;
   }
 }
@@ -425,6 +495,24 @@ body{
 
   .btn {
     padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .error-container {
+    padding: 24px 16px;
+  }
+
+  .error-gif {
+    width: 120px;
+    height: 120px;
+  }
+
+  .error-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .error-message {
     font-size: 13px;
   }
 }
