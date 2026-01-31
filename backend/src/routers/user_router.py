@@ -1,19 +1,12 @@
 from fastapi import FastAPI
-from contextlib import asynccontextmanager
 from .api_router import router as survey_router
-from src.services.scheduler import start_scheduler
+from src.core.config import setup_cors
+from src.core.config import lifespan
 from loguru import logger
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    start_scheduler()
-    logger.info("Application started, scheduler initialized")
-    yield
-    # Shutdown
-    logger.info("Application shutting down")
-
 app = FastAPI(lifespan=lifespan)
+
+setup_cors(app)
 
 app.include_router(survey_router)
 
