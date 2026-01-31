@@ -6,21 +6,23 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://alignify-backend-v0.onrender.com',
+        target: 'http://0.0.0.0:8000',
         changeOrigin: true,
       }
     }
   },
+  
   preview: {
     host: true,
     port: 4173,
     proxy: {
       '/api': {
-        target: 'https://alignify-backend-v0.onrender.com',
+        target: 'http://backend:8000',
         changeOrigin: true,
       }
     }
   },
+
   build: {
     rollupOptions: {
       input: {

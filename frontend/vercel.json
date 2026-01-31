@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://alignify-backend-v0.onrender.com/api/$1"
+    },
+    {
+      "source": "/health",
+      "destination": "https://alignify-backend-v0.onrender.com/health"
+    }
+  ]
+}
