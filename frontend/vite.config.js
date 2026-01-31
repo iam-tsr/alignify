@@ -16,12 +16,11 @@ export default defineConfig({
     port: 4173,
     proxy: {
       '/api': {
-        target: 'http://backend:8000',
+        target: 'https://alignify-backend-v0.onrender.com',
         changeOrigin: true,
       }
     }
   },
-
   build: {
     rollupOptions: {
       input: {
