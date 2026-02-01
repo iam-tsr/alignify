@@ -10,6 +10,11 @@ body{
   background-attachment: fixed;
 }
 
+body.loading-container {
+  background-image: none;
+  background-color: var(--white);
+}
+
 .header {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   position: relative;
@@ -30,6 +35,17 @@ body{
   justify-content: center;
   align-items: center;
   min-height: 90vh;
+}
+
+div.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-icon {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
 }
 
 .survey-container {

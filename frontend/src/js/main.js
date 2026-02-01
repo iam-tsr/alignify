@@ -33,6 +33,8 @@ class SurveyApp {
     this.feedbackInput = document.getElementById('feedbackInput');
     this.prevBtn = document.getElementById('prevBtn');
     this.nextBtn = document.getElementById('nextBtn');
+    this.loadingContainer = document.getElementById('loadingContainer');
+    this.surveyContainer = document.getElementById('surveyContainer');
 
     // Add event listeners
     this.prevBtn.addEventListener('click', () => this.previousQuestion());
@@ -40,7 +42,18 @@ class SurveyApp {
     this.feedbackInput.addEventListener('input', (e) => this.saveFeedback(e.target.value));
 
     // Fetch questions from API
-    await this.fetchQuestions();
+    const success = await this.fetchQuestions();
+
+    if (this.loadingContainer) {
+      this.loadingContainer.style.display = 'none';
+    }
+    
+    // Remove loading class from body
+    document.body.classList.remove('loading-container');
+
+    if (!success) {
+      return;
+    }
 
     // Initialize responses array
     for (let i = 0; i < this.totalQuestions; i++) {
@@ -53,6 +66,9 @@ class SurveyApp {
     }
 
     this.isLoading = false;
+    if (this.surveyContainer) {
+      this.surveyContainer.style.display = 'flex';
+    }
 
     // Render first question
     this.renderQuestion();
@@ -60,6 +76,9 @@ class SurveyApp {
 
   async fetchQuestions() {
     try {
+      // Add a 3-second delay to simulate slow loading
+      // await new Promise(resolve => setTimeout(resolve, 3000));
+      
       const response = await fetch('/api/fetch');
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
