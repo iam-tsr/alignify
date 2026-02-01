@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from src.database.mongo_db import MongoDBHandler
 from typing import List, Dict, Any
-from src.model.bert_classifier import classify_text
+from src.model.classify import classifier
 from src.database.mongo_db import MongoDBHandler
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -34,7 +34,7 @@ async def submit_survey(response: List[Dict[str, Any]]):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/api/text_classify")
-async def text_classification(doc_id: Dict[str, str]):
+async def text_classification(doc_id: Dict[str, str] = {'doc_id': 'meow'}):
     """Retrieve the data pushed to database (MongoDB) and analyze and classify the user response text using BERT model"""
     try:
         if doc_id is None:
@@ -42,9 +42,11 @@ async def text_classification(doc_id: Dict[str, str]):
             return None
         
         doc_id = doc_id['doc_id']
+        logger.info(f"Document ID received for classification: {doc_id}")
         text = mongo.read_one(collection="responses", field="entries", doc_id={"_id": ObjectId(doc_id)}, sub_field="feedback")
-        sentiments = ["NEUTRAL" if not entry or entry.isspace() else classify_text(entry) for entry in text]
-
+        logger.info(f"Text data fetched for classification: {text}")
+        sentiments = ["NEUTRAL" if not entry or entry.isspace() else classifier(entry) for entry in text]
+    
         update_result = mongo.update_sub_field(
             collection="responses",
             doc_id={"_id": ObjectId(doc_id)},

@@ -7,7 +7,7 @@ from loguru import logger
 def setup_cors(app):
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # For production, specify your frontend URL
+        allow_origins=["https://alignify-app.vercel.app"],  # For production, specify your frontend URL
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

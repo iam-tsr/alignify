@@ -6,3 +6,4 @@ pymongo==4.16.0
 loguru==0.7.3
 apscheduler==3.11.2
 pytz==2025.2
+requests==2.32.5

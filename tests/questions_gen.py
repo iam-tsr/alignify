@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'backend'))
 
 # from src.services.qa_gen import generate
-from src.model.qwen_gen import generate
+from src.model.gardio.qwen_gen import generate
 from src.database.mongo_db import MongoDBHandler
 from bson.objectid import ObjectId
 
@@ -20,8 +20,8 @@ gen = spase_gen_data(gen)
 
 mongo = MongoDBHandler()
 
-filter = {"_id": ObjectId('6978ebab62e042ad81930929')}
+filter = {"_id": ObjectId('697ceac080d830a7ef53f790')}
 collection = "questions"
 data = {"questions": gen}
 
-doc_id = mongo.write_one(collection, data)
+doc_id = mongo.update_field(collection, filter, data)
