@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://0.0.0.0:8000',
+        target: 'http://0.0.0.0:10000',
         changeOrigin: true,
       }
     }
@@ -17,7 +17,7 @@ export default defineConfig({
     port: 4173,
     proxy: {
       '/api': {
-        target: 'http://backend:8000',
+        target: 'https://alignify-backend-production-cbb3.up.railway.app/',
         changeOrigin: true,
       }
     }
