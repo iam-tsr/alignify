@@ -10,7 +10,7 @@ from src.database.mongo_db import MongoDBHandler
 
 mongo = MongoDBHandler()
 
-id = ""
+id = "697e55e0af6f4bbbd70acabf"
 
 query = { "_id": { "$ne": ObjectId(id) } }
 
