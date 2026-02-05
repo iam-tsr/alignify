@@ -3,13 +3,8 @@ class SurveyApp {
     this.currentQuestion = 0;
     this.responses = [];
     this.questions = [];
-    this.options = [
-      "Strongly Disagree",
-      "Disagree",
-      "Neutral",
-      "Agree",
-      "Strongly Agree"
-    ];
+    // Options 0 to 10
+    this.options = Array.from({length: 11}, (_, i) => i);
     this.totalQuestions = 0;
     this.isLoading = true;
     this.retryInterval = null;
@@ -25,21 +20,34 @@ class SurveyApp {
     }
 
     // Get DOM elements
-    this.progressText = document.getElementById('progressText');
-    this.progressPercent = document.getElementById('progressPercent');
-    this.progressBar = document.getElementById('progressBar');
     this.questionText = document.getElementById('questionText');
     this.optionsContainer = document.getElementById('optionsContainer');
     this.feedbackInput = document.getElementById('feedbackInput');
     this.prevBtn = document.getElementById('prevBtn');
     this.nextBtn = document.getElementById('nextBtn');
+    this.skipBtn = document.getElementById('skipBtn');
     this.loadingContainer = document.getElementById('loadingContainer');
     this.surveyContainer = document.getElementById('surveyContainer');
+    this.reactionIcon = document.getElementById('reactionIcon');
+    
+    // Progress SVG element
+    this.progressSvg = document.querySelector('.progress-border-svg');
+    this.progressRect = document.querySelector('.progress-border-svg .progress-rect');
 
     // Add event listeners
-    this.prevBtn.addEventListener('click', () => this.previousQuestion());
-    this.nextBtn.addEventListener('click', () => this.nextQuestion());
-    this.feedbackInput.addEventListener('input', (e) => this.saveFeedback(e.target.value));
+    if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.previousQuestion());
+    if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.nextQuestion());
+    if (this.skipBtn) {
+        this.skipBtn.addEventListener('click', () => this.skipQuestion());
+    }
+    if (this.feedbackInput) this.feedbackInput.addEventListener('input', (e) => this.saveFeedback(e.target.value));
+    
+    // Update progress bar on resize to recalculate perimeter
+    window.addEventListener('resize', () => {
+        if (!this.isLoading && this.questions.length > 0) {
+            this.updateProgress();
+        }
+    });
 
     // Fetch questions from API
     const success = await this.fetchQuestions();
@@ -57,17 +65,21 @@ class SurveyApp {
 
     // Initialize responses array
     for (let i = 0; i < this.totalQuestions; i++) {
-      this.responses.push({
-        question: this.questions[i],
-        selectedOption: null,
-        feedback: '',
-        feedbackSentiment: null
-      });
+        if (!this.responses[i]) {
+            this.responses.push({
+                question: this.questions[i],
+                selectedOption: null,
+                feedback: '',
+                feedbackSentiment: null
+            });
+        }
     }
 
     this.isLoading = false;
     if (this.surveyContainer) {
       this.surveyContainer.style.display = 'flex';
+      // Trigger updateProgress after layout is visible to get correct dimensions
+      setTimeout(() => this.updateProgress(), 50);
     }
 
     // Render first question
@@ -76,9 +88,9 @@ class SurveyApp {
 
   async fetchQuestions() {
     try {
-      // Add a 3-second delay to simulate slow loading
-      // await new Promise(resolve => setTimeout(resolve, 3000));
-      
+
+      // await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
+
       const response = await fetch('/api/fetch');
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
@@ -86,7 +98,7 @@ class SurveyApp {
       this.questions = await response.json();
       this.questions = this.questions.splice(0); // Limit to questions for testing
       this.totalQuestions = this.questions.length;
-      return response.ok;
+      return true;
     } catch (error) {
       console.error('Error fetching questions:', error);
       this.showError();
@@ -102,43 +114,81 @@ class SurveyApp {
     const questionText = this.questions[this.currentQuestion];
     const response = this.responses[this.currentQuestion];
 
-    // Update progress
-    const progress = ((this.currentQuestion + 1) / this.totalQuestions) * 100;
-    this.progressText.textContent = `Question ${this.currentQuestion + 1} of ${this.totalQuestions}`;
-    this.progressPercent.textContent = `${Math.round(progress)}%`;
-    this.progressBar.style.width = `${progress}%`;
+    this.updateProgress();
 
     // Update question text
-    this.questionText.textContent = questionText;
+    if (this.questionText) this.questionText.textContent = questionText;
 
     // Update feedback textarea
-    this.feedbackInput.value = response.feedback;
+    if (this.feedbackInput) this.feedbackInput.value = response.feedback || '';
 
     // Render options
     this.renderOptions(response.selectedOption);
+    
+    // Update reaction icon
+    this.updateReaction(response.selectedOption);
 
     // Update button states
-    this.prevBtn.disabled = this.currentQuestion === 0;
-    this.nextBtn.disabled = response.selectedOption === null;
-    this.nextBtn.textContent = this.currentQuestion === this.totalQuestions - 1 ? 'Submit' : 'Next';
+    if (this.prevBtn) {
+        this.prevBtn.disabled = this.currentQuestion === 0;
+    }
+    
+    if (this.nextBtn) {
+        this.nextBtn.disabled = response.selectedOption === null;
+        this.nextBtn.textContent = this.currentQuestion === this.totalQuestions - 1 ? 'Submit' : 'Next';
+    }
+  }
+  
+  updateProgress() {
+      if (!this.progressRect) return;
+      
+      // Calculate total length path
+      // Since it is a rect in SVG, we can use getTotalLength()
+      const perimeter = this.progressRect.getTotalLength();
+      
+      // Set dasharray to perimeter so we can offset it
+      this.progressRect.style.strokeDasharray = perimeter;
+      
+      // Calculate remaining "length" based on questions left.
+      // Logic: "Shows how much survey is left."
+      // Start (Q1, index 0): 100% visible (offset 0).
+      // End (Q10, index 9): Small amount visible? Or just before submit 10% visible?
+      // After Submit: 0 visible.
+      
+      // Formula: ((total - current) / total) * perimeter
+      // Ex: total 10. current 0. (10-0)/10 = 1. Offset = 0 ? No.
+      // StrokeDashOffset: 0 means full stroke visible. perimeter means 0 visible.
+      // So visible_fraction = (totalQuestions - currentQuestion) / totalQuestions;
+      // offset = perimeter * (1 - visible_fraction)
+      //        = perimeter * (1 - (total - current)/total)
+      //        = perimeter * (current / total)
+      
+      // Let's verify:
+      // Q1 (idx 0): offset = P * 0 = 0. Stroke full. Correct "100% left".
+      // Q10 (idx 9): offset = P * 0.9. Stroke 10% visible (1/10th left). Correct.
+      // After last question submit -> usually goes to thank you page so no matter.
+      
+      const offset = perimeter * (this.currentQuestion / this.totalQuestions);
+      this.progressRect.style.strokeDashoffset = offset;
   }
 
   renderOptions(selectedOption) {
+    if (!this.optionsContainer) return;
+    
     this.optionsContainer.innerHTML = '';
 
     this.options.forEach((option) => {
       const label = document.createElement('label');
-      label.className = 'option-label';
+      label.className = 'scale-option-label';
 
       const input = document.createElement('input');
       input.type = 'radio';
       input.name = 'satisfaction';
       input.value = option;
-      input.checked = selectedOption === option;
-      input.addEventListener('change', (e) => this.selectOption(e.target.value));
+      input.checked = selectedOption == option;
+      input.addEventListener('change', (e) => this.selectOption(parseInt(e.target.value)));
 
       const span = document.createElement('span');
-      span.className = 'option-text';
       span.textContent = option;
 
       label.appendChild(input);
@@ -149,7 +199,23 @@ class SurveyApp {
 
   selectOption(option) {
     this.responses[this.currentQuestion].selectedOption = option;
-    this.nextBtn.disabled = false;
+    if (this.nextBtn) this.nextBtn.disabled = false;
+    this.updateReaction(option);
+  }
+
+  updateReaction(score) {
+      if (!this.reactionIcon) return;
+      
+      if (score === null || score === undefined) {
+          this.reactionIcon.src = './assets/images/reactions/None.png';
+          return;
+      }
+      
+      let reaction = 'Neutral';
+      if (score <= 6) reaction = 'Sad';
+      else if (score >= 9) reaction = 'Happy';
+      
+      this.reactionIcon.src = `./assets/images/reactions/${reaction}.png`;
   }
 
   saveFeedback(feedback) {
@@ -172,10 +238,18 @@ class SurveyApp {
     }
   }
   
+  skipQuestion() {
+      this.responses[this.currentQuestion].selectedOption = null;
+      if (this.currentQuestion < this.totalQuestions - 1) {
+          this.currentQuestion++;
+          this.renderQuestion();
+      } else {
+          this.submitSurvey();
+      }
+  }
+  
   async submitSurvey() {
-    
     let doc_id = null;
-    // Send the responses to the server
     try {
       const response = await fetch('/api/save', {
         method: 'POST',
@@ -198,45 +272,36 @@ class SurveyApp {
       return;
     }
     
-    // Mark survey as completed in localStorage
-    // localStorage.setItem('surveyCompleted', 'true'); // Disabled for testing purposes
     this.showThankYou();
     
-    console.log('Analyzing feedback sentiment...');
-    
-    // Analyze sentiment for all responses with feedback
+    // Analyze sentiment
     try {
-      const sentimentAnalysis = await fetch('/api/text_classify', {
+      fetch('/api/text_classify', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({doc_id: doc_id}),
         keepalive: true
       });
     } catch (error) {
-      console.error('Error analyzing sentiment:', error);
+      console.error('Error triggering analysis:', error);
     }
-    
-    console.log('Sentiment analysis complete:', this.responses);
   }
 
   showThankYou() {
     const surveyContainer = document.getElementById('surveyContainer');
     const thankYouContainer = document.getElementById('thankYouContainer');
     
-    surveyContainer.style.display = 'none';
-    thankYouContainer.style.display = 'flex';
+    if (surveyContainer) surveyContainer.style.display = 'none';
+    if (thankYouContainer) thankYouContainer.style.display = 'flex';
   }
 
   showError() {
     const surveyContainer = document.getElementById('surveyContainer');
     const errorContainer = document.getElementById('errorContainer');
     
-    surveyContainer.style.display = 'none';
-    errorContainer.style.display = 'flex';
+    if (surveyContainer) surveyContainer.style.display = 'none';
+    if (errorContainer) errorContainer.style.display = 'flex';
     
-    // Start checking backend connectivity
     this.startRetryConnection();
   }
 
@@ -253,6 +318,8 @@ class SurveyApp {
   }
 
   startRetryConnection() {
+    if (this.retryInterval) clearInterval(this.retryInterval);
+    
     this.retryInterval = setInterval(async () => {
       console.log('Checking backend connection...');
       const isConnected = await this.checkBackendConnection();
@@ -266,7 +333,6 @@ class SurveyApp {
   }
 }
 
-// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new SurveyApp();
 });

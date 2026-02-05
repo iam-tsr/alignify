@@ -1,13 +1,13 @@
-version: '0.1.0'
+version: '0.2.3'
 services:
   backend:
-    image: alignify-backend:v0
+    image: alignify-backend:v1
     container_name: alignify-backend
     ports:
       - "8000:8000"
   
   frontend:
-    image: alignify-frontend:v0
+    image: alignify-frontend:v1
     container_name: alignify-frontend
     ports:
       - "4173:4173"

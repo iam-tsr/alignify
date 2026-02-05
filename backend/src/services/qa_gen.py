@@ -10,7 +10,7 @@
 #     model = "gemini-2.5-flash"
 
 #     num = 3 #Number of questions to generate
-#     company_name = "TSR Corporation" #Company name
+#     company_name = "TSR Corp" #Company name
     
 #     contents = [
 #         types.Content(

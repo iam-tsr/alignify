@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - alignify</title>
+    <link rel="stylesheet" href="../assets/style/pages/analytics/dashboard.css">
+  </head>
+  <body>
+    
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <nav class="nav">
+          <a href="#" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="explore.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <span>Explore</span>
+          </a>
+          <a href="#" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Admin</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <h1 class="page-title">Dashboard</h1>
+          <div class="logo">alignify</div>
+        </header>
+
+        <!-- Score Cards -->
+        <div class="score-cards">
+          <div class="score-card">
+            <div class="score-card-content">
+              <div class="score-left">
+                <div class="score-label">ENGAGEMENT SCORE</div>
+                <div class="score-value">6.7</div>
+              </div>
+              <div class="score-right">
+                <div class="circular-progress" data-value="75" data-color="#f39c12">
+                  <svg width="80" height="80">
+                    <circle class="progress-bg" cx="40" cy="40" r="32"></circle>
+                    <circle class="progress-bar" cx="40" cy="40" r="32"></circle>
+                  </svg>
+                  <div class="progress-text">75</div>
+                </div>
+              </div>
+            </div>
+            <div class="progress-line" style="background: linear-gradient(90deg, #f39c12 75%, #e0e0e0 75%);"></div>
+          </div>
+
+          <div class="score-card">
+            <div class="score-card-content">
+              <div class="score-left">
+                <div class="score-label">POSITIVE SCORE</div>
+                <div class="score-value positive">5.3</div>
+              </div>
+              <div class="score-right">
+                <div class="circular-progress" data-value="35" data-color="#27ae60">
+                  <svg width="80" height="80">
+                    <circle class="progress-bg" cx="40" cy="40" r="32"></circle>
+                    <circle class="progress-bar" cx="40" cy="40" r="32"></circle>
+                  </svg>
+                  <div class="progress-text">35</div>
+                </div>
+              </div>
+            </div>
+            <div class="progress-line" style="background: linear-gradient(90deg, #27ae60 35%, #e0e0e0 35%);"></div>
+          </div>
+
+          <div class="score-card">
+            <div class="score-card-content">
+              <div class="score-left">
+                <div class="score-label">NEGATIVE SCORE</div>
+                <div class="score-value negative">7.8</div>
+              </div>
+              <div class="score-right">
+                <div class="circular-progress" data-value="68" data-color="#e74c3c">
+                  <svg width="80" height="80">
+                    <circle class="progress-bg" cx="40" cy="40" r="32"></circle>
+                    <circle class="progress-bar" cx="40" cy="40" r="32"></circle>
+                  </svg>
+                  <div class="progress-text">68</div>
+                </div>
+              </div>
+            </div>
+            <div class="progress-line" style="background: linear-gradient(90deg, #e74c3c 68%, #e0e0e0 68%);"></div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-row">
+          <div class="chart-card">
+            <h3 class="chart-title">Monthly Overview</h3>
+            <canvas id="monthlyChart"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">Weekly Trend</h3>
+              <span class="chart-subtitle">Last Week</span>
+            </div>
+            <canvas id="weeklyChart"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="survey-card">
+              <div class="survey-header">
+                <span class="survey-label">Last Survey</span>
+                <h3 class="survey-title">Q3 Employee Feedback</h3>
+              </div>
+              <div class="gauge-container">
+                <div class="gauge" id="gaugeChart">
+                  <svg width="200" height="120" viewBox="0 0 200 120">
+                    <path class="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#e0e0e0" stroke-width="12"></path>
+                    <path class="gauge-fill" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#27ae60" stroke-width="12" stroke-dasharray="251.2" stroke-dashoffset="75.36"></path>
+                  </svg>
+                  <div class="gauge-value">72</div>
+                  <div class="gauge-label">Promoter</div>
+                </div>
+              </div>
+              <div class="survey-stats">
+                <div class="stat">
+                  <div class="stat-label">Sent</div>
+                  <div class="stat-value">500</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label">Responded</div>
+                  <div class="stat-value">420</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overall Trend -->
+        <div class="overall-trend">
+          <h3 class="section-title">Overall Trend</h3>
+          <div class="trend-circles">
+            <div class="trend-circle">
+              <div class="circular-progress large" data-value="75" data-color="#27ae60">
+                <svg width="140" height="140">
+                  <circle class="progress-bg" cx="70" cy="70" r="55"></circle>
+                  <circle class="progress-bar" cx="70" cy="70" r="55"></circle>
+                </svg>
+                <div class="progress-text">75</div>
+              </div>
+            </div>
+            <div class="trend-circle">
+              <div class="circular-progress large" data-value="75" data-color="#f39c12">
+                <svg width="140" height="140">
+                  <circle class="progress-bg" cx="70" cy="70" r="55"></circle>
+                  <circle class="progress-bar" cx="70" cy="70" r="55"></circle>
+                </svg>
+                <div class="progress-text">75</div>
+              </div>
+            </div>
+            <div class="trend-circle">
+              <div class="circular-progress large" data-value="75" data-color="#e74c3c">
+                <svg width="140" height="140">
+                  <circle class="progress-bg" cx="70" cy="70" r="55"></circle>
+                  <circle class="progress-bar" cx="70" cy="70" r="55"></circle>
+                </svg>
+                <div class="progress-text">75</div>
+              </div>
+            </div>
+          </div>
+          <p class="trend-description">
+            Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s.
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="../script/pages/analytics/dashboard.js"></script>
+  </body>
+</html>

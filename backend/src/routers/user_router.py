@@ -14,8 +14,3 @@ app.include_router(survey_router)
 async def health_check():
     logger.info("Health check endpoint was called.")
     return {"status": "healthy"}
-
-@app.get("/connection_check")
-async def connection_check():
-    logger.info("Connection check endpoint was called.")
-    return {"status": "connected"}

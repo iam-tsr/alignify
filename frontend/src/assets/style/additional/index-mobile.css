@@ -1,0 +1,188 @@
+/* Responsive Design*/
+
+/* Mobile screens (480px and below) */
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .app {
+    min-height: 90vh;
+  }
+
+  .survey-container {
+    padding: 0 20px;
+  }
+
+  .progress-section {
+    margin-bottom: 20px;
+  }
+
+  .survey-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .progress-header {
+    font-size: 12px;
+  }
+
+  .progress-text,
+  .progress-percent {
+    font-size: 13px;
+  }
+
+  .progress-bar-container {
+    height: 6px;
+  }
+
+  .question-section {
+    padding: 24px 20px;
+    min-height: 380px;
+    border-radius: 10px;
+  }
+
+  .question-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+    min-height: 45px;
+  }
+
+  .options-container {
+    flex-direction: column-reverse;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .option-label {
+    flex-direction: row;
+    justify-content: flex-start;
+    transition: background-color 0.2s ease;
+  }
+
+  .option-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 0;
+    margin-right: 12px;
+  }
+
+  .option-text {
+    text-align: left;
+  }
+
+  .feedback-textarea {
+    height: 90px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+
+  .button-container {
+    gap: 10px;
+    flex-direction: column-reverse;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 14px;
+  }
+
+  .thank-you-container {
+    border-radius: 12px;
+  }
+
+  .thank-you-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .thank-you-title {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  .thank-you-message {
+    font-size: 14px;
+  }
+
+  .error-container {
+    flex-direction: column;
+    padding: 30px 20px;
+    max-width: 100%;
+    gap: 20px;
+    border-radius: 12px;
+  }
+
+  .error-left {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .error-gif {
+    width: 140px;
+    height: 140px;
+  }
+
+  .error-right {
+    text-align: center;
+  }
+
+  .error-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .error-message {
+    font-size: 14px;
+  }
+}
+
+/* Small mobile screens (360px and below) */
+@media (max-width: 360px) {
+  .survey-title {
+    font-size: 20px;
+  }
+
+  .question-section {
+    padding: 20px 16px;
+    min-height: 360px;
+  }
+
+  .question-text {
+    font-size: 14px;
+  }
+
+  .option-text {
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .error-container {
+    padding: 24px 16px;
+  }
+
+  .error-gif {
+    width: 120px;
+    height: 120px;
+  }
+
+  .error-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .error-message {
+    font-size: 13px;
+  }
+}

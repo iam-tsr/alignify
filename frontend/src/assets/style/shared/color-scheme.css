@@ -1,0 +1,18 @@
+:root {
+  /* Primary Colors */
+  --primary: #0077FF;
+  --primary-hover: #0066DB;
+  --primary-light: #0077FF;
+
+  /* Background */
+  --background: #F2F3F5;
+
+  /* Neutral Colors */
+  --white: #ffffff;
+  --black: #171717;
+  
+  /* Shadow */
+  --shadow-light: rgba(0, 0, 0, 0.25);
+
+  --gradient: linear-gradient(180deg, #00329D 0%, #0077FF 100%);
+}

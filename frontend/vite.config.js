@@ -3,7 +3,10 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  root: 'src',
+  
   server: {
+    port: 3000,
     proxy: {
       '/api': {
         target: 'http://0.0.0.0:10000',
@@ -26,8 +29,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        // analytics: resolve(__dirname, 'analytics.html'),
+        main: resolve(__dirname, 'src/index.html'),
+        dashboard: resolve(__dirname, 'src/analytics/dashboard.html'),
       },
     },
   },
