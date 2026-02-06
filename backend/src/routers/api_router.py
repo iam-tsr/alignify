@@ -57,4 +57,37 @@ async def text_classification(doc_id: Dict[str, str]):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/api/score")
+async def calculate_score(engagement=False, positive=False, negative=False):
+    """Calculate the engagement score based on the user responses and return the score to the frontend"""
+    try:
+        collection = "responses"
 
+        if engagement:
+            logger.info(f"Called engagement score API")
+
+            num_doc = mongo.count_documents(collection=collection)
+            score = (num_doc/(num_doc+5))*10
+            return round(score, 1)
+        elif positive:
+            logger.info(f"Called positive score API")
+
+            num_feedbacks = mongo.count_entries(collection=collection, sub_field="feedbackSentiment", value=["POSITIVE"])
+            num_selectedOptions = mongo.count_entries(collection=collection, sub_field="selectedOption", value=[8, 9, 10])
+            num_doc = mongo.count_documents(collection=collection)
+
+            num_entries = num_feedbacks + num_selectedOptions
+            score = (num_entries/(num_doc*10))*10
+            return round(score, 1)
+        elif negative:
+            logger.info(f"Called negative score API")
+
+            num_feedbacks = mongo.count_entries(collection=collection, sub_field="feedbackSentiment", value=["NEGATIVE"])
+            num_selectedOptions = mongo.count_entries(collection=collection, sub_field="selectedOption", value=[0, 1, 2, 3, 4])
+            num_doc = mongo.count_documents(collection=collection)
+
+            num_entries = num_feedbacks + num_selectedOptions
+            score = (num_entries/(num_doc*10))*10
+            return round(score, 1)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

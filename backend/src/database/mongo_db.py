@@ -212,6 +212,38 @@ class MongoDBHandler:
         except OperationFailure as e:
             print(f"Failed to delete documents: {e}")
             return 0
+        
+    def count_documents(self, collection: str, query: Dict = {}) -> int:
+        """Count the number of documents in a collection matching a query"""
+        try:
+            collection = self.db[collection]
+            count = collection.count_documents(query)
+            return count
+        except OperationFailure as e:
+            print(f"Failed to count documents: {e}")
+            return 0
+        
+    def count_entries(self, collection: str, sub_field: str, value: list) -> int:
+        """Count the total number of entries in a specified field across documents matching a query"""
+        try:
+            pipeline = [
+                {"$unwind": "$entries"},
+                {
+                    "$match": {
+                        f"entries.{sub_field}": {"$in": value}
+                    }
+                },
+                {"$count": "total"}
+            ]
+
+            collection = self.db[collection]
+            result = list(collection.aggregate(pipeline))
+            count = result[0]["total"] if result else 0
+            return count
+        
+        except OperationFailure as e:
+            print(f"Failed to count entries: {e}")
+            return 0
     
     def close_connection(self):
         """Close the MongoDB connection"""

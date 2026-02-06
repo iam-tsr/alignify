@@ -1,77 +1,38 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Explore - alignify</title>
-    <link rel="stylesheet" href="../assets/style/pages/analytics/explore.css">
-  </head>
-  <body>
-    
-    <div class="container">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <nav class="nav">
-          <a href="dashboard.html" class="nav-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-            <span>Dashboard</span>
-          </a>
-          <a href="explore.html" class="nav-item active">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <span>Explore</span>
-          </a>
-          <a href="#" class="nav-item">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M12 1v6m0 6v6"></path>
-              <path d="m1 12h6m6 0h6"></path>
-            </svg>
-            <span>Admin</span>
-          </a>
-        </nav>
-      </aside>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Explore - alignify</title>
+  <link rel="stylesheet" href="../assets/style/pages/analytics/explore.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Sidebar will be loaded here -->
+    </aside>
+
+    <!-- Layout Content -->
+    <div class="layout-content">
+      <header class="header">
+        <div class="logo"><img src="../assets/images/logo/alignify-logo-bkl.png" alt="Alignify Logo"></div>
+      </header>
 
       <!-- Main Content -->
       <main class="main-content">
-        <!-- Header -->
-        <header class="header">
+        <div class="title-row">
           <h1 class="page-title">Data Explore</h1>
-          <div class="header-right">
-            <div class="dropdown">
-              <button class="dropdown-btn" id="dateRangeBtn">
-                Last 30 days
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-              <div class="dropdown-menu" id="dateRangeMenu">
-                <a href="#" class="dropdown-item" data-value="7">Last 7 days</a>
-                <a href="#" class="dropdown-item active" data-value="30">Last 30 days</a>
-                <a href="#" class="dropdown-item" data-value="90">Last 90 days</a>
-                <a href="#" class="dropdown-item" data-value="365">Last year</a>
-              </div>
-            </div>
-            <div class="logo">alignify</div>
-          </div>
-        </header>
+        </div>
 
         <!-- Search Bar -->
         <div class="search-container">
-          <input 
-            type="text" 
-            class="search-input" 
-            id="searchInput"
-            placeholder='Ask a question about your data... (e.g., "Show me satisfaction ratings for UK respondents")'
-          />
+          <input type="text" class="search-input" id="searchInput"
+            placeholder='Ask a question about your data... (e.g., "Show me satisfaction ratings for UK respondents")' />
           <button class="search-btn" id="searchBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"></circle>
@@ -121,13 +82,13 @@
         <div class="results-section">
           <div class="results-header">
             <h2 class="results-title">Results</h2>
-            <div class="view-toggle">
+            <!-- <div class="view-toggle">
               <span class="toggle-label">View as Chart</span>
               <label class="toggle-switch">
                 <input type="checkbox" id="viewToggle">
                 <span class="toggle-slider"></span>
               </label>
-            </div>
+            </div> -->
           </div>
 
           <!-- Table View -->
@@ -143,7 +104,7 @@
                   <th>NPS Comment</th>
                 </tr>
               </thead>
-              <tbody id="tableBody">
+              <!-- <tbody id="tableBody">
                 <tr>
                   <td>300000440</td>
                   <td>03/07/2023</td>
@@ -200,18 +161,14 @@
                   <td>67</td>
                   <td>Collaboration with a communicati...</td>
                 </tr>
-              </tbody>
+              </tbody> -->
             </table>
-          </div>
-
-          <!-- Chart View (hidden by default) -->
-          <div class="chart-view" id="chartView" style="display: none;">
-            <canvas id="dataChart"></canvas>
           </div>
         </div>
       </main>
     </div>
 
     <script type="module" src="../script/pages/analytics/explore.js"></script>
-  </body>
+</body>
+
 </html>

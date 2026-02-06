@@ -207,15 +207,16 @@ class SurveyApp {
       if (!this.reactionIcon) return;
       
       if (score === null || score === undefined) {
-          this.reactionIcon.src = './assets/images/reactions/None.png';
+          this.reactionIcon.src = './assets/images/sentiments/none.png';
           return;
       }
       
-      let reaction = 'Neutral';
-      if (score <= 6) reaction = 'Sad';
-      else if (score >= 9) reaction = 'Happy';
+      let reaction = 'neutral';
+      if (score <= 3) reaction = 'sad';
+      else if (score == 7 || score == 8) reaction = 'happy';
+      else if (score >= 9) reaction = 'excited';
       
-      this.reactionIcon.src = `./assets/images/reactions/${reaction}.png`;
+      this.reactionIcon.src = `./assets/images/sentiments/${reaction}.png`;
   }
 
   saveFeedback(feedback) {

@@ -1,5 +1,25 @@
 import Chart from 'chart.js/auto';
 
+// Load sidebar component
+async function loadSidebar() {
+  try {
+    const response = await fetch('components/sidebar.html');
+    const html = await response.text();
+    const sidebarElement = document.getElementById('sidebar');
+    if (sidebarElement) {
+      sidebarElement.innerHTML = html;
+      // Set active state for dashboard
+      const dashboardLink = sidebarElement.querySelector('a[href="#"]');
+      if (dashboardLink) {
+        dashboardLink.classList.add('active');
+        dashboardLink.href = '#';
+      }
+    }
+  } catch (error) {
+    console.error('Error loading sidebar:', error);
+  }
+}
+
 // Initialize circular progress bars
 function initCircularProgress() {
   const progressElements = document.querySelectorAll('.circular-progress');
@@ -67,7 +87,7 @@ function initMonthlyChart() {
     options: {
       responsive: true,
       maintainAspectRatio: true,
-      aspectRatio: 2,
+      aspectRatio: 1.5,
       plugins: {
         legend: {
           display: false
@@ -215,7 +235,8 @@ function initGaugeChart() {
 }
 
 // Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadSidebar();
   initCircularProgress();
   initMonthlyChart();
   initWeeklyChart();
