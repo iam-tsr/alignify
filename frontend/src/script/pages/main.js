@@ -3,7 +3,6 @@ class SurveyApp {
     this.currentQuestion = 0;
     this.responses = [];
     this.questions = [];
-    // Options 0 to 10
     this.options = Array.from({length: 11}, (_, i) => i);
     this.totalQuestions = 0;
     this.isLoading = true;
@@ -96,7 +95,7 @@ class SurveyApp {
         throw new Error('Failed to fetch questions');
       }
       this.questions = await response.json();
-      this.questions = this.questions.splice(0,1); // Limit to questions for testing
+      this.questions = this.questions.splice(0); // Limit to questions for testing
       this.totalQuestions = this.questions.length;
       return true;
     } catch (error) {
