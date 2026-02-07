@@ -24,5 +24,3 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/alignify-backend:v1
-          cache-from: type=gha
-          cache-to: type=gha,mode=max

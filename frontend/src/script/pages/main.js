@@ -96,7 +96,7 @@ class SurveyApp {
         throw new Error('Failed to fetch questions');
       }
       this.questions = await response.json();
-      this.questions = this.questions.splice(0); // Limit to questions for testing
+      this.questions = this.questions.splice(0,1); // Limit to questions for testing
       this.totalQuestions = this.questions.length;
       return true;
     } catch (error) {
@@ -207,7 +207,7 @@ class SurveyApp {
       if (!this.sentimentIcon) return;
       
       if (score === null || score === undefined) {
-          this.sentimentIcon.src = './assets/images/sentiments/none.png';
+          this.sentimentIcon.src = sentimentImages.none;
           return;
       }
       
@@ -216,7 +216,7 @@ class SurveyApp {
       else if (score == 7 || score == 8) sentiment = 'happy';
       else if (score >= 9) sentiment = 'excited';
       
-      this.sentimentIcon.src = `./assets/images/sentiments/${sentiment}.png`;
+      this.sentimentIcon.src = sentimentImages[sentiment];
   }
 
   saveFeedback(feedback) {
@@ -337,3 +337,11 @@ class SurveyApp {
 document.addEventListener('DOMContentLoaded', () => {
   new SurveyApp();
 });
+
+const sentimentImages = {
+  none: new URL('../../assets/images/sentiments/none.png', import.meta.url).href,
+  sad: new URL('../../assets/images/sentiments/sad.png', import.meta.url).href,
+  neutral: new URL('../../assets/images/sentiments/neutral.png', import.meta.url).href,
+  happy: new URL('../../assets/images/sentiments/happy.png', import.meta.url).href,
+  excited: new URL('../../assets/images/sentiments/excited.png', import.meta.url).href,
+};

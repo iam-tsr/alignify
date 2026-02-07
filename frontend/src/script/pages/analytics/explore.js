@@ -52,7 +52,7 @@ async function fetchExploreData() {
   if (!container) return;
   
   // Show loading state
-  container.innerHTML = '<p style="text-align: center; color: #6b7280;">Loading data...</p>';
+  container.innerHTML = '<p style="text-align: center; color: var(--gray);">Loading data...</p>';
 
   try {
     const response = await fetch('/api/rFetch');
@@ -62,7 +62,7 @@ async function fetchExploreData() {
     renderData(data);
   } catch (error) {
     console.error('Error fetching data:', error);
-    container.innerHTML = '<p style="text-align: center; color: #ef4444;">Error loading data. Please try again later.</p>';
+    container.innerHTML = '<p style="text-align: center; color: var(--red);">Error loading data. Please try again later.</p>';
   }
 }
 
@@ -71,7 +71,7 @@ function renderData(data) {
   container.innerHTML = '';
   
   if (data.length === 0) {
-    container.innerHTML = '<p style="text-align: center; color: #6b7280;">No data found.</p>';
+    container.innerHTML = '<p style="text-align: center; color: var(--gray);">No data found.</p>';
     return;
   }
 

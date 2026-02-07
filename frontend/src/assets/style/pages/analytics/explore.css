@@ -14,18 +14,17 @@
   min-height: 60px;
   width: 100%;
   padding: 16px;
-  font-size: 15px;
+  font-size: var(--text-medium);
   border: 1px solid var(--black);
   border-radius: var(--small-radius);
   outline: none;
   background: transparent;
   color: var(--black);
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .search-input:hover {
   border: 2px solid var(--primary);
-  opacity: 0.5;
 }
 
 .search-input:focus {
@@ -46,12 +45,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .search-input:hover + .search-btn {
   color: var(--primary);
-  opacity: 0.5;
 }
 
 .search-input:focus + .search-btn {
@@ -118,24 +116,25 @@
 
 .header-info {
   display: flex;
-  gap: 16px;
   font-family: 'Inter', monospace;
-  font-size: 14px;
-  color: #374151;
-  background: #f3f4f6;
-  padding: 8px 16px;
-  border-radius: 20px;
+  font-size: var(--text-medium);
+  color: var(--dark-grey);
 }
 
 .header-info span {
   font-weight: 500;
 }
 
+.card-id, .card-date {
+  background: var(--background);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
 /* Content Area */
 .data-card-content {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
   display: none; /* Hidden by default */
   flex-direction: column;
   gap: 12px;
@@ -147,7 +146,7 @@
 
 /* Entry Item (Question Block) */
 .entry-item {
-  background: #f9fafb;
+  background: var(--background);
   padding: 12px;
   border-radius: 8px;
   border-left: 4px solid var(--grey);
@@ -155,13 +154,13 @@
 
 .entry-line {
   margin-bottom: 4px;
-  font-size: 14px;
-  color: #4b5563;
+  font-size: var(--text-medium);
+  color: var(--black);
   line-height: 1.5;
 }
 
 .entry-line strong {
-  color: #111827;
+  color: var(--black);
   font-weight: 600;
   margin-right: 8px;
 }
