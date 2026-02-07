@@ -52,20 +52,20 @@ function initMonthlyChart() {
   if (!ctx) return;
 
   // Generate sample data
-  const labels = [];
-  const data = [];
-  for (let i = 0; i <= 30; i++) {
-    labels.push(i);
+  const x = [];
+  const y = [];
+  for (let i = 0; i <= 5; i++) {
+    x.push(i);
     // Create a wave-like pattern similar to the image
-    data.push(50 + 80 * Math.sin(i / 5) + 30 * Math.sin(i / 2));
+    y.push(50 + 80 * Math.sin(i / 5) + 30 * Math.sin(i / 2));
   }
 
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: labels,
+      labels: x,
       datasets: [{
-        data: data,
+        data: y,
         borderColor: '#60a5fa',
         backgroundColor: (context) => {
           const ctx = context.chart.ctx;
@@ -157,10 +157,10 @@ function initWeeklyChart() {
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      labels: ['Week1', 'Week2', 'Week3', 'Week4'],
       datasets: [{
         data: [33, 26, 38, 31, 42, 48, 18],
-        backgroundColor: '#52c788',
+        backgroundColor: '#f39c12',
         borderRadius: 6,
         barThickness: 28
       }]

@@ -11,13 +11,22 @@ router = APIRouter()
 
 mongo = MongoDBHandler()
 
-@router.get("/api/fetch")
+@router.get("/api/qFetch")
 async def get_survey_questions():
     """Get survey questions from the database (MongoDB)"""
     try:
         question = mongo.read_one(collection="questions", field="questions")
 
         return question
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/api/rFetch")
+async def get_explore_data():
+    """Get all survey responses for the explore page"""
+    try:
+        data = mongo.read_all("responses")
+        return data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -33,7 +42,7 @@ async def submit_survey(response: List[Dict[str, Any]]):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/api/text_classify")
+@router.post("/api/resp_classify")
 async def text_classification(doc_id: Dict[str, str]):
     """Retrieve the data pushed to database (MongoDB) and analyze and classify the user response text using BERT model"""
     try:

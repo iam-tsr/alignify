@@ -1,17 +1,6 @@
-@import url('/assets/style/shared/color-scheme.css');
+@import url('/assets/style/shared/universal.css');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto');
-
-body {
-  margin: 0;
-  padding: 0;
-  background-image: url('/assets/images/background.png');
-  background-color: var(--background, #f0f2f5);
-  background-size: contain;
-  background-repeat: repeat;
-  background-attachment: fixed;
-  font-family: 'Roboto', sans-serif;
-}
 
 body.loading-container {
   background-image: none;
@@ -56,8 +45,8 @@ body.loading-container {
   align-items: center;
   background: var(--white);
   border: 1px solid var(--black);
-  border-radius: 6px;
-  padding: 12px 16px;
+  border-radius: var(--small-radius);
+  padding: 7px 7px 7px 16px;
   cursor: pointer;
   font-family: inherit;
   font-size: 14px;
@@ -83,7 +72,7 @@ body.loading-container {
   display: flex;
   flex-direction: row;
   background: var(--white);
-  border-radius: 10px;
+  border-radius: var(--big-radius);
   box-shadow: 0 4px 14px var(--shadow-light);
   width: 110%;
   min-height: 550px;
@@ -134,14 +123,14 @@ body.loading-container {
 }
 
 .question-container {
-    min-height: 80px; 
+    min-height: 70px;
     display: flex;
     align-items: center;
     margin-bottom: 32px;
 }
 
 .question-text {
-  font-size: 20px;
+  font-size: var(--text-big);
   font-weight: 500;
   line-height: 1.5;
   color: var(--black);
@@ -186,7 +175,7 @@ body.loading-container {
 }
 
 .scale-option-label span {
-  font-size: 16px;
+  font-size: var(--text-medium);
   font-weight: 600;
   color: var(--black);
   width: 24px;
@@ -209,12 +198,12 @@ body.loading-container {
 .scale-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: var(--text-small);
   font-weight: 400;
   color: var(--black);
 }
 
-.reaction-container {
+.sentiment-container {
   flex: 0 0 14%;
   display: flex;
   flex-direction: column;
@@ -222,15 +211,15 @@ body.loading-container {
   width: 60px;
 }
 
-#reactionIcon {
+#sentimentIcon {
   width: 45px;
   height: auto;
   margin-bottom: 10px;
   object-fit: contain;
 }
 
-.reaction-text {
-  font-size: 12px;
+.sentiment-text {
+  font-size: var(--text-small);
   text-align: center;
   color: var(--black);
   font-weight: 400;
@@ -241,9 +230,9 @@ body.loading-container {
   height: 100px;
   padding: 12px;
   border: 2px solid var(--black);
-  border-radius: 8px;
+  border-radius: var(--small-radius);
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--text-medium);
   resize: none;
   margin-bottom: 24px;
   box-sizing: border-box;
@@ -269,10 +258,10 @@ body.loading-container {
   background-color: var(--primary, var(--primary));
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--small-radius);
   padding: 12px 26px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--text-medium);
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
@@ -291,16 +280,16 @@ body.loading-container {
 .skip-container {
     display: flex;
     justify-content: left;
-    margin-top: auto; 
+    margin-top: auto;
 }
 
 .btn-skip {
     background: transparent;
     border: 1px solid var(--black);
-    border-radius: 7px;
-    padding: 12px 16px;
+    border-radius: var(--small-radius);
+    padding: 7px 7px 7px 16px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: var(--text-medium);
     color: var(--black);
     cursor: pointer;
     display: flex;
@@ -351,10 +340,4 @@ body.loading-container {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-}
-
-@media (max-width: 1200px) {
-  .html, body {
-    display: none;
-  }
 }

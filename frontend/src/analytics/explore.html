@@ -25,14 +25,13 @@
 
       <!-- Main Content -->
       <main class="main-content">
-        <div class="title-row">
-          <h1 class="page-title">Data Explore</h1>
-        </div>
+        
+        <h1 class="page-title">Data Explore</h1>
 
         <!-- Search Bar -->
         <div class="search-container">
           <input type="text" class="search-input" id="searchInput"
-            placeholder='Ask a question about your data... (e.g., "Show me satisfaction ratings for UK respondents")' />
+            placeholder='Ask a question about your data.. (e.g., “Show me the data for 20XX-XX-XX”)' />
           <button class="search-btn" id="searchBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"></circle>
@@ -41,130 +40,38 @@
           </button>
         </div>
 
-        <!-- Filters -->
-        <div class="filters-section">
-          <div class="filter-chips" id="filterChips">
-            <div class="filter-chip active">
-              <span>Date Range: Last 90 Days</span>
-              <button class="chip-remove">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-            <div class="filter-chip active">
-              <span>Survey: Employee Feedback</span>
-              <button class="chip-remove">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-            <div class="filter-chip">
-              <span>Region: All</span>
-            </div>
-            <div class="filter-chip">
-              <span>Department: All</span>
-            </div>
-            <button class="add-filter-btn" id="addFilterBtn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Add Filter
-            </button>
+        <div class="data-container">
+          <!-- Data Section -->
+          <div class="data-section">
+            <!-- Data will be displayed here -->
           </div>
         </div>
 
-        <!-- Results Section -->
-        <div class="results-section">
-          <div class="results-header">
-            <h2 class="results-title">Results</h2>
-            <!-- <div class="view-toggle">
-              <span class="toggle-label">View as Chart</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="viewToggle">
-                <span class="toggle-slider"></span>
-              </label>
-            </div> -->
+        <!-- Templates -->
+        <template id="data-card-template">
+          <div class="data-card">
+            <div class="data-card-header">
+              <button class="toggle-btn" aria-label="Toggle details">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+              <div class="header-info">
+                <span class="card-id"></span>
+                <span class="card-date" style="margin-left: 24px;"></span>
+              </div>
+            </div>
+            <div class="data-card-content">
+              <!-- Entries will be added here -->
+            </div>
           </div>
+        </template>
 
-          <!-- Table View -->
-          <div class="table-container" id="tableView">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Respondent ID</th>
-                  <th>Date</th>
-                  <th>Region</th>
-                  <th>Department</th>
-                  <th>Satisfaction Score</th>
-                  <th>NPS Comment</th>
-                </tr>
-              </thead>
-              <!-- <tbody id="tableBody">
-                <tr>
-                  <td>300000440</td>
-                  <td>03/07/2023</td>
-                  <td>UK</td>
-                  <td>Management</td>
-                  <td>75</td>
-                  <td>Fiming to somt thi responsive wat...</td>
-                </tr>
-                <tr>
-                  <td>300000562</td>
-                  <td>03/07/2023</td>
-                  <td>UK</td>
-                  <td>Department</td>
-                  <td>63</td>
-                  <td>Thank you to at zuv stafio.</td>
-                </tr>
-                <tr>
-                  <td>300000583</td>
-                  <td>03/07/2023</td>
-                  <td>Germany</td>
-                  <td>Sales</td>
-                  <td>60</td>
-                  <td>Very mgly seht about satisfaction...</td>
-                </tr>
-                <tr>
-                  <td>300000435</td>
-                  <td>03/07/2023</td>
-                  <td>Germany</td>
-                  <td>Manager</td>
-                  <td>66</td>
-                  <td>People wiith handson woдload</td>
-                </tr>
-                <tr>
-                  <td>300000406</td>
-                  <td>03/07/2023</td>
-                  <td>UK</td>
-                  <td>Management</td>
-                  <td>75</td>
-                  <td>Thienиrreutch as stay-mpoiled ca...</td>
-                </tr>
-                <tr>
-                  <td>300000677</td>
-                  <td>03/07/2023</td>
-                  <td>UK</td>
-                  <td>Department</td>
-                  <td>68</td>
-                  <td>Health work usudl of дeding team...</td>
-                </tr>
-                <tr>
-                  <td>300000643</td>
-                  <td>03/07/2023</td>
-                  <td>Germany</td>
-                  <td>Sales</td>
-                  <td>67</td>
-                  <td>Collaboration with a communicati...</td>
-                </tr>
-              </tbody> -->
-            </table>
+        <template id="entry-item-template">
+          <div class="entry-item">
+            <div class="entry-line"><strong>Question:</strong> <span class="entry-question"></span></div>
+            <div class="entry-line"><strong>NPS:</strong> <span class="entry-nps"></span></div>
+            <div class="entry-line"><strong>Feedback:</strong> <span class="entry-feedback"></span></div>
           </div>
-        </div>
+        </template>
       </main>
     </div>
 

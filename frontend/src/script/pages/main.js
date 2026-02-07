@@ -28,7 +28,7 @@ class SurveyApp {
     this.skipBtn = document.getElementById('skipBtn');
     this.loadingContainer = document.getElementById('loadingContainer');
     this.surveyContainer = document.getElementById('surveyContainer');
-    this.reactionIcon = document.getElementById('reactionIcon');
+    this.sentimentIcon = document.getElementById('sentimentIcon');
     
     // Progress SVG element
     this.progressSvg = document.querySelector('.progress-border-svg');
@@ -68,7 +68,7 @@ class SurveyApp {
         if (!this.responses[i]) {
             this.responses.push({
                 question: this.questions[i],
-                selectedOption: null,
+                nps: null,
                 feedback: '',
                 feedbackSentiment: null
             });
@@ -91,7 +91,7 @@ class SurveyApp {
 
       // await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
 
-      const response = await fetch('/api/fetch');
+      const response = await fetch('/api/qFetch');
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
       }
@@ -123,10 +123,10 @@ class SurveyApp {
     if (this.feedbackInput) this.feedbackInput.value = response.feedback || '';
 
     // Render options
-    this.renderOptions(response.selectedOption);
+    this.renderOptions(response.nps);
     
-    // Update reaction icon
-    this.updateReaction(response.selectedOption);
+    // Update sentiment icon
+    this.updateSentiment(response.nps);
 
     // Update button states
     if (this.prevBtn) {
@@ -134,7 +134,7 @@ class SurveyApp {
     }
     
     if (this.nextBtn) {
-        this.nextBtn.disabled = response.selectedOption === null;
+        this.nextBtn.disabled = response.nps === null;
         this.nextBtn.textContent = this.currentQuestion === this.totalQuestions - 1 ? 'Submit' : 'Next';
     }
   }
@@ -172,7 +172,7 @@ class SurveyApp {
       this.progressRect.style.strokeDashoffset = offset;
   }
 
-  renderOptions(selectedOption) {
+  renderOptions(nps) {
     if (!this.optionsContainer) return;
     
     this.optionsContainer.innerHTML = '';
@@ -185,7 +185,7 @@ class SurveyApp {
       input.type = 'radio';
       input.name = 'satisfaction';
       input.value = option;
-      input.checked = selectedOption == option;
+      input.checked = nps == option;
       input.addEventListener('change', (e) => this.selectOption(parseInt(e.target.value)));
 
       const span = document.createElement('span');
@@ -198,25 +198,25 @@ class SurveyApp {
   }
 
   selectOption(option) {
-    this.responses[this.currentQuestion].selectedOption = option;
+    this.responses[this.currentQuestion].nps = option;
     if (this.nextBtn) this.nextBtn.disabled = false;
-    this.updateReaction(option);
+    this.updateSentiment(option);
   }
 
-  updateReaction(score) {
-      if (!this.reactionIcon) return;
+  updateSentiment(score) {
+      if (!this.sentimentIcon) return;
       
       if (score === null || score === undefined) {
-          this.reactionIcon.src = './assets/images/sentiments/none.png';
+          this.sentimentIcon.src = './assets/images/sentiments/none.png';
           return;
       }
       
-      let reaction = 'neutral';
-      if (score <= 3) reaction = 'sad';
-      else if (score == 7 || score == 8) reaction = 'happy';
-      else if (score >= 9) reaction = 'excited';
+      let sentiment = 'neutral';
+      if (score <= 3) sentiment = 'sad';
+      else if (score == 7 || score == 8) sentiment = 'happy';
+      else if (score >= 9) sentiment = 'excited';
       
-      this.reactionIcon.src = `./assets/images/sentiments/${reaction}.png`;
+      this.sentimentIcon.src = `./assets/images/sentiments/${sentiment}.png`;
   }
 
   saveFeedback(feedback) {
@@ -240,7 +240,7 @@ class SurveyApp {
   }
   
   skipQuestion() {
-      this.responses[this.currentQuestion].selectedOption = null;
+      this.responses[this.currentQuestion].nps = null;
       if (this.currentQuestion < this.totalQuestions - 1) {
           this.currentQuestion++;
           this.renderQuestion();
@@ -277,7 +277,7 @@ class SurveyApp {
     
     // Analyze sentiment
     try {
-      fetch('/api/text_classify', {
+      fetch('/api/resp_classify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({doc_id: doc_id}),

@@ -37,6 +37,27 @@ class MongoDBHandler:
         except OperationFailure as e:
             print(f"Failed to insert document: {e}")
             return None
+
+    def read_all(self, collection: str, limit: int = 5) -> list:
+        """Read latest documents from a collection with a limit"""
+        try:
+            collection = self.db[collection]
+            cursor = (
+                collection
+                .find({}, {"_id": 1, "created_at": 1, "entries": 1})
+                .sort("created_at", -1)
+                .limit(limit)
+            )
+
+            results = []
+            for doc in cursor:
+                doc["id"] = str(doc.pop("_id"))
+                results.append(doc)
+
+            return results
+        except Exception as e:
+            print(f"Failed to read all documents: {e}")
+            return []
     
     def read_one(self, collection: str, field: str, doc_id: Optional[Dict] = None, sub_field: Optional[str] = None) -> Optional[Dict]:
         """Read a single document from a collection
