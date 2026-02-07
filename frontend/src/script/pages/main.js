@@ -14,6 +14,7 @@ class SurveyApp {
   async init() {
     // Check if survey was already completed
     if (localStorage.getItem('surveyCompleted') === 'true') {
+      document.body.classList.remove('loading-container');
       this.showThankYou();
       return;
     }
@@ -88,14 +89,14 @@ class SurveyApp {
   async fetchQuestions() {
     try {
 
-      // await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
+      await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
 
       const response = await fetch('/api/qFetch');
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
       }
       this.questions = await response.json();
-      this.questions = this.questions.splice(0); // Limit to questions for testing
+      this.questions = this.questions.splice(0,1); // Limit to questions for testing
       this.totalQuestions = this.questions.length;
       return true;
     } catch (error) {
@@ -290,9 +291,12 @@ class SurveyApp {
   showThankYou() {
     const surveyContainer = document.getElementById('surveyContainer');
     const thankYouContainer = document.getElementById('thankYouContainer');
+
+    localStorage.setItem('surveyCompleted', 'true');
     
     if (surveyContainer) surveyContainer.style.display = 'none';
     if (thankYouContainer) thankYouContainer.style.display = 'flex';
+    if (loadingContainer) loadingContainer.style.display = 'none';
   }
 
   showError() {

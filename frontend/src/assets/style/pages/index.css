@@ -2,11 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto');
 
-body.loading-container {
-  background-image: none;
-  background-color: var(--white);
-}
-
 .header {
   position: relative;
   display: flex;
@@ -29,6 +24,11 @@ body.loading-container {
 
 .loading-icon {
   width: 150px;
+}
+
+body.loading-container {
+  background-image: none;
+  background-color: var(--white);
 }
 
 .survey-wrapper {
