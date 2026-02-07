@@ -23,4 +23,4 @@ jobs:
           context: .
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/alignify-backend:v0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alignify-backend:v0
