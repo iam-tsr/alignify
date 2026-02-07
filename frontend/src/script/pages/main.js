@@ -89,14 +89,14 @@ class SurveyApp {
   async fetchQuestions() {
     try {
 
-      await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
+      // await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
 
       const response = await fetch('/api/qFetch');
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
       }
       this.questions = await response.json();
-      this.questions = this.questions.splice(0,1); // Limit to questions for testing
+      this.questions = this.questions.splice(0); // Limit to questions for testing
       this.totalQuestions = this.questions.length;
       return true;
     } catch (error) {
