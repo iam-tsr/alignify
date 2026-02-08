@@ -8,7 +8,7 @@
 
 **AI-powered employee engagement platform**
 
-[![deploy](https://img.shields.io/github/actions/workflow/status/actions/toolkit/unit-tests.yml?color=%23dbeafe
+[![deploy](https://img.shields.io/github/actions/workflow/status/actions/toolkit/unit-tests.yml?color=green
 )](https://github.com/iam-tsr/alignify/actions/workflows/docker-image.yml)
 [![Maintainers](https://img.shields.io/badge/maintainers-1-success.svg?color=%230077FF)](#maintainers)
 [![GitHub contributors](https://img.shields.io/github/contributors/iam-tsr/alignify.svg?color=%230077FF)](https://github.com/alshedivat/al-folio/graphs/contributors/)
@@ -33,7 +33,7 @@ A lack of effective employee management in many organizations results in reduced
 
 ### Project Scope and Strategy
 
-This project contains a survey panel where personnel can answer a number of questions and provide anonymous feedback. It will be examined after passing via the Alignify automated system. Employers or management can access the data through a dashboard that provides a graphic representation of data insights and AI-generated suggestions for improvements. This will assist in identifying the areas in which employees are most struggling.
+This project contains a survey panel where personnel have to answer a number of questions and provide anonymous feedback. It will be examined after passing via the Alignify automated system. Employers or management can access the data through a dashboard that provides a graphic representation of data insights and AI-generated suggestions for improvements. This will assist in identifying the areas in which employees are most struggling.
 
 Thus far, we have employed two models for automation: the Qwen model for question generation and the DistilBERT model for employee feedback classification for analytics. The synthetic data used to fine-tune both models was produced by other LLMs. Both models are now operating on CPU rather than GPU since we have to quantize and improve inference. Ten questions may be generated in approximately 8 seconds or less, while text classification takes approximately 2 seconds.
 

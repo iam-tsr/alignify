@@ -2,17 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto');
 
-.header {
-  position: relative;
-  display: flex;
-  padding: 20px 20px;
-  justify-content: flex-end;
-}
 
-.logo img {
-  width: 100px;
-  height: auto;
-}
 
 .app {
   display: flex;

@@ -116,7 +116,6 @@
 
 .header-info {
   display: flex;
-  font-family: 'Inter', monospace;
   font-size: var(--text-medium);
   color: var(--dark-grey);
 }
@@ -135,7 +134,7 @@
 .data-card-content {
   margin-top: 16px;
   padding-top: 16px;
-  display: none; /* Hidden by default */
+  display: none;
   flex-direction: column;
   gap: 12px;
 }
