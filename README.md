@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[<img src="frontend/src/assets/images/logo/alignify-logo-wht.png" alt="Logo of alignify" style="width:150px;">](https://alignify-app.vercel.app/)
+[<img src="frontend/src/assets/images/logo/alignify-logo-wht.png" alt="Logo of alignify" style="width:300px;">](https://alignify-app.vercel.app/)
 
 ---
 
