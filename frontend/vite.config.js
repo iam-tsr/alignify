@@ -36,9 +36,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'src/index.html'),
-        dashboard: resolve(__dirname, 'src/analytics/dashboard.html'),
-        explore: resolve(__dirname, 'src/analytics/explore.html'),
-        sidebar: resolve(__dirname, 'src/analytics/components/sidebar.html'),
+        survey: resolve(__dirname, 'src/html/survey.html'),
+        dashboard: resolve(__dirname, 'src/html/analytics/dashboard.html'),
+        explore: resolve(__dirname, 'src/html/analytics/explore.html'),
+        sidebar: resolve(__dirname, 'src/html/analytics/components/sidebar.html'),
       },
     },
   },
