@@ -8,27 +8,7 @@ const __dirname = dirname(__filename)
 // https://vitejs.dev/config/
 export default defineConfig({
   root: 'src',
-  
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://0.0.0.0:10000',
-        changeOrigin: true,
-      }
-    }
-  },
-  
-  preview: {
-    host: true,
-    port: 4173,
-    proxy: {
-      '/api': {
-        target: 'http://0.0.0.0:10000',
-        changeOrigin: true,
-      }
-    }
-  },
+  base: '/alignify/',
 
   build: {
     outDir: resolve(__dirname, 'dist'),
