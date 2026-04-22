@@ -1,5 +1,7 @@
 import Chart from 'chart.js/auto';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 // Load sidebar component
 async function loadSidebar() {
   try {
@@ -55,7 +57,7 @@ async function fetchExploreData() {
   container.innerHTML = '<p style="text-align: center; color: var(--gray);">Loading data...</p>';
 
   try {
-    const response = await fetch('/api/rFetch');
+    const response = await fetch(`${API_BASE_URL}/api/rFetch`, { method: 'GET' });
     if (!response.ok) throw new Error('Failed to fetch data');
     
     const data = await response.json();

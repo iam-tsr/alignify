@@ -1,9 +1,13 @@
 import uvicorn
 from src.routers.user_router import app
+import os
+import dotenv
+
+dotenv.load_dotenv()
 
 if __name__ == "__main__":
     uvicorn.run(
         app,
-        host="0.0.0.0",
-        port=10000,
+        host=os.getenv("HOST"),
+        port=int(os.getenv("PORT")),
     )

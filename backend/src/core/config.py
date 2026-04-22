@@ -3,11 +3,18 @@ from contextlib import asynccontextmanager
 from src.services.scheduler import start_scheduler
 from fastapi import FastAPI
 from loguru import logger
+import os
+import dotenv
+
+dotenv.load_dotenv()
 
 def setup_cors(app):
+    origins_env = os.getenv("CORS_ORIGINS")
+    origins = origins_env.split(",") if origins_env else ["*"]
+    
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["https://alignify-app.vercel.app"],  # For production, specify your frontend URL
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

@@ -1,3 +1,5 @@
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 class SurveyApp {
   constructor() {
     this.currentQuestion = 0;
@@ -91,7 +93,7 @@ class SurveyApp {
 
       // await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate loading delay
 
-      const response = await fetch('/api/qFetch');
+      const response = await fetch(`${API_BASE_URL}/api/qFetch`, { method: 'GET' });
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
       }
@@ -252,7 +254,7 @@ class SurveyApp {
   async submitSurvey() {
     let doc_id = null;
     try {
-      const response = await fetch('/api/save', {
+      const response = await fetch(`${API_BASE_URL}/api/save`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json' 
@@ -277,7 +279,7 @@ class SurveyApp {
     
     // Analyze sentiment
     try {
-      fetch('/api/resp_classify', {
+      fetch(`${API_BASE_URL}/api/resp_classify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({doc_id: doc_id}),
@@ -311,7 +313,7 @@ class SurveyApp {
 
   async checkBackendConnection() {
     try {
-      const response = await fetch('/health', { 
+      const response = await fetch(`${API_BASE_URL}/health`, {
         method: 'GET',
         cache: 'no-cache'
       });

@@ -270,3 +270,15 @@ class MongoDBHandler:
         """Close the MongoDB connection"""
         self.client.close()
         print("MongoDB connection closed")
+
+
+if __name__ == "__main__":
+    # Example usage
+    mongo_handler = MongoDBHandler()
+    
+    # Read all documents
+    documents = mongo_handler.read_all("responses")
+    print("Documents in collection:", documents)
+    
+    # Close connection
+    mongo_handler.close_connection()
